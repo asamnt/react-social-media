@@ -1,6 +1,9 @@
 import React from "react";
+import { PostContext } from "../App";
 
-function CreatePost({ user, handleAddPost }) {
+function CreatePost({ user }) {
+  const { dispatch } = React.useContext(PostContext);
+
   const [content, setContent] = React.useState("");
   const [image, setImage] = React.useState(null);
 
@@ -9,10 +12,11 @@ function CreatePost({ user, handleAddPost }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     //we are doing this work to create a new array, we need to add existing posts + new post to the new array
-    const post = { content, image, user };
-
+    const post = { content, image, user, id: Date.now() };
+    // console.log("in handleSubmit");
+    dispatch({ type: "ADD_POST", payload: { post } });
     //this is the better way
-    handleAddPost(post); //we are lifting the activity of add posts to the parent object
+    // handleAddPost(post); //we are lifting the activity of add posts to the parent object
 
     //below is another way
     // const newPosts = [post, ...posts];

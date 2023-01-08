@@ -1,7 +1,7 @@
 import React from "react";
 import { UserContext } from "../App";
 
-function Post({ image, content, user }) {
+function Post({ image, content, user, id }) {
   const currentUser = React.useContext(UserContext);
   const isCurrentUser = currentUser === user;
   return (
@@ -16,6 +16,7 @@ function Post({ image, content, user }) {
       )}
       <p>{content}</p>
       <div style={{ color: isCurrentUser && "green" }}>{user}</div>
+      {isCurrentUser && <button>Delete</button>}
     </>
   );
 }
