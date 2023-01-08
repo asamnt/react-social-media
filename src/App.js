@@ -5,6 +5,8 @@ import Login from "./components/Login";
 import PostList from "./components/PostList";
 
 // const functionCount = new Set();
+//we create context outside the component
+export const UserContext = React.createContext();
 
 function App() {
   //   let user = "";
@@ -29,13 +31,13 @@ function App() {
     return <Login setUser={setUser} />; //we are passing a prop setUser to the child login component so that it can use it to lift its state up
   }
   return (
-    <>
+    <UserContext.Provider value={user}>
       <Header user={user} setUser={setUser} />
-      {/* //we are passing the setUser function to header so that we can reset the user to null when logging out */}
-      {/* //this is passing function reference */}
+      {/* //we are passing the setUser function as a prop to the header so that we can reset the user to null when logging out */}
+      {/* //this(handlePost ref) is passing function reference. we are not "calling" the function here */}
       <CreatePost user={user} handleAddPost={handleAddPost} />
       <PostList posts={posts} />
-
+      {/* we created component PostList and then within it Post instead of all the logic here in App.js */}
       {/* {posts.map((post, i) => (
         <React.Fragment key={i}>
           {post.image && (
@@ -49,7 +51,7 @@ function App() {
           <div>{user}</div>
         </React.Fragment>
       ))} */}
-    </>
+    </UserContext.Provider>
   );
 }
 
